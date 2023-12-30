@@ -9,21 +9,21 @@
 
 ### <div align="center">Disclaimer</div>
 
-<div align="center">    
+ 
     
 This project was inspired by the One Lone Coder [Asteroids Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk)
 
 Recreated with SDL2 instead of the [olcPixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine).
-</div>
+
 
 
 ### <div align="center">Brief Description of the Project </div>
-<div align="center">    
+   
     
 Developed over a few days as an engaging side project while pursuing my Computer Science studies.
 
 I chose to use the GLM library for 2D vector manipulation for its ease of use, although it might seem a bit of an overkill for a simple game. 
-</div>
+
 
 <div align="center">    
 The Game Objective, and Gameplay Mechanics
@@ -34,9 +34,9 @@ The Game Objective, and Gameplay Mechanics
 
 
 ### <div align="center">Libraries Used</div>
-<div align="center"> 
+
 The libraries comes with the project so no need to download them yourself.
-</div>
+
 
     (included in the repo)
     SDL2 library
@@ -45,19 +45,19 @@ The libraries comes with the project so no need to download them yourself.
 
 ## <div align="center">Installation</div>
 
-<div align="center"> 
+
 Download Game (Binaries): Get the pre-built game. Download the zip file containing the executable (bin) from [release-link].
-</div>
+
 
 ### <div align="center">Building from Source</div>
 
-<div align="center"> 
+
 This project is primarily developed using Microsoft Visual Studio Community. 
 
 If you're working with a different IDE, you might need to adjust the setup to compile and run the game. 
 
 This involves configuring the environment to match the dependencies and settings used in Visual Studio.
-</div>
+
 
 ### <div align="center">Build Instructions</div>
 
@@ -68,13 +68,24 @@ This involves configuring the environment to match the dependencies and settings
 
 ### <div align="center">Final Notes</div>
 
-<div align="center"> 
+
 This project, while small in scale, embraces the open-source philosophy. 
+
+A few finishing touches are still to be dealt with, in order to make this game complele. 
+
+Here's a TODO List:
+    
+1. Adjust loud SFX levels.
+2. Implement a Scoring System.
+3. Define a Victory Condition.
+4. Icorporate Randomization to The Game.
+5. Duplicated Asteroids Rotate The Same Direction Sometimes.
+6. Tidy up code and Add Documentation to Everything.
+    
 
 You are encouraged to use, modify, and enhance the code as you see fit. 
 
 Contributions are welcomed !
 
 if you wish to contribute, submit a pull request with a clear explanation of your proposed changes for review. 
-</div>
 
