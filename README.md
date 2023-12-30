@@ -33,4 +33,4 @@ License
 Information about the project's license.
 Screenshots/Demo
 
-Include images or videos showing the game in action.
+![GamePic](https://github.com/MTN95/AsteroidsRemake/assets/113786893/2a9234f4-60d3-4d85-a69a-246d08dcc6a7)
