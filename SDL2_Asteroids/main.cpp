@@ -2,12 +2,14 @@
 #include "Game.h"
 
 /*
-* TODO:
+* TODO List:
 * 
 * 1: Some SFX are too loud.
 * 2: Game Needs a Score Count.
-* 3: A Way To Randomize the game a little
-* 4: Tidy up code and add documentation to everything.
+* 3: Game Needs a Win Condition.
+* 4: A Way To Randomize the game a little.
+* 5: Duplicated asteroids rotate the same way sometimes
+* 6: Tidy up code and add documentation to everything.
 */ 
 
 int main(int argc, char* argv[])
