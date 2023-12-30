@@ -76,14 +76,16 @@ A few finishing touches are still to be dealt with, in order to make this game c
 Here's a TODO List:
 </div>
 
-    <div align="center"> 
+<div align="center">   
+    
     1. Adjust loud SFX levels.
     2. Implement a Scoring System.
     3. Define a Victory Condition.
     4. Icorporate Randomization to The Game.
     5. Duplicated Asteroids Rotate The Same Direction Sometimes.
     6. Tidy up code and Add Documentation to Everything.
-    </div>
+
+</div>
     
 <div align="center"> 
 You are encouraged to use, modify, and enhance the code as you see fit. 
