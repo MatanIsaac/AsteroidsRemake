@@ -7,12 +7,13 @@
 
 
 
-<div align="center"> ### Brief description of the game, its objectives, and gameplay mechanics.  </div>
+### <div align="center">Brief description of the game, its objectives, and gameplay mechanics</div>
     A simple remake, destroy all the asteroids to win, if you get hit by an asteroid you lose. 
     accelerate with the 'UP' key and rotate with 'LEFT' 'RIGHT, Press 'SPACE' to shoot bullets.   
 
 
-# Prerequisites Used:
+### <div align="center">Prerequisites Used:</div>
+
 The prerequisites comes with the project so no need to download them yourself.
 
     SDL2 library
