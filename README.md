@@ -55,3 +55,14 @@ This involves configuring the environment to match the dependencies and settings
     Build the Project
     Play the Game: The executable is located at repoLocation\bin\x64\Release\SDL2_Asteroids.exe
 
+### <div align="center">Final Notes</div>
+
+This project, while small in scale, embraces the open-source philosophy. 
+
+You are encouraged to use, modify, and enhance the code as you see fit. 
+
+Contributions are welcomed !
+
+if you wish to contribute, submit a pull request with a clear explanation of your proposed changes for review. 
+
+
