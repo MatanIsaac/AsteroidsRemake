@@ -9,7 +9,7 @@
 
 ### <div align="center">Disclaimer</div>
 <div align="center"> 
-This project was inspired by the One Lone Coder [![Asteroids Tutorial](https://img.youtube.com/vi/QgDR8LrRZhk/0.jpg)](https://www.youtube.com/watch?v=QgDR8LrRZhk)
+This project was inspired by the One Lone Coder [Asteroids - Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk "OLC-Asteroids")
 
 
 
