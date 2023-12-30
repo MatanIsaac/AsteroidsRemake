@@ -74,6 +74,7 @@ This project, while small in scale, embraces the open-source philosophy.
 You are encouraged to use, modify, and enhance the code as you see fit. 
 
 Contributions are welcomed !
+
 if you wish to contribute, submit a pull request with a clear explanation of your proposed changes for review. 
 </div>
 
