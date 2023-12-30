@@ -74,6 +74,7 @@ This project, while small in scale, embraces the open-source philosophy.
 A few finishing touches are still to be dealt with, in order to make this game complele. 
 
 Here's a TODO List:
+</div>
 
     1. Adjust loud SFX levels.
     2. Implement a Scoring System.
@@ -81,7 +82,8 @@ Here's a TODO List:
     4. Icorporate Randomization to The Game.
     5. Duplicated Asteroids Rotate The Same Direction Sometimes.
     6. Tidy up code and Add Documentation to Everything.
-
+    
+<div align="center"> 
 You are encouraged to use, modify, and enhance the code as you see fit. 
 
 Contributions are welcomed !
