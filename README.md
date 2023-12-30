@@ -71,23 +71,21 @@ This involves configuring the environment to match the dependencies and settings
 <div align="center"> 
 This project, while small in scale, embraces the open-source philosophy. 
 
-You are encouraged to use, modify, and enhance the code as you see fit. 
-
-A few finishing touches are still to be dealt with, in order to complete this game.
+A few finishing touches are still to be dealt with, in order to make this game complele. 
 
 Here's a TODO List:
 
-     1. Adjust loud SFX levels
-     2. Implement a Scoring System.
-     3. Define a Victory Condition.
-     4. Incorporate Randomization
-     5. Duplicated Asteroids Rotate The Same Way Sometimes
-     6. Tidy up code and Add Documentation to Everything.
+    1. Adjust loud SFX levels.
+    2. Implement a Scoring System.
+    3. Define a Victory Condition.
+    4. Icorporate Randomization to The Game.
+    5. Duplicated Asteroids Rotate The Same Direction Sometimes.
+    6. Tidy up code and Add Documentation to Everything.
 
+You are encouraged to use, modify, and enhance the code as you see fit. 
 
 Contributions are welcomed !
 
 if you wish to contribute, submit a pull request with a clear explanation of your proposed changes for review. 
-
 </div>
 
