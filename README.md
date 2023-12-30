@@ -12,7 +12,7 @@
     accelerate with the 'UP' key and rotate with 'LEFT' 'RIGHT, Press 'SPACE' to shoot bullets.   
 
 
-### <div align="center">Prerequisites Used:</div>
+### <div align="center">Prerequisites Used</div>
 
 The prerequisites comes with the project so no need to download them yourself.
 
@@ -21,7 +21,7 @@ The prerequisites comes with the project so no need to download them yourself.
     SDL2 extensions: SDL2_image, SDL2_mixer, SDL2_ttf
     OpenGL Mathematics (GLM) library 
 
-# Installation
+## <div align="center">Installation</div>
 
 Download Game (Binaries): Get the pre-built game. Download the zip file containing the executable (bin) from [release-link].
 
@@ -29,7 +29,7 @@ or
 
 Build from Source: Set up and compile the game yourself.
 
-## Build Instructions:
+### <div align="center">Build Instructions</div>
 
     Clone the Repository: git clone [repo-link]
     Navigate to Project Directory: cd asteroid-game
