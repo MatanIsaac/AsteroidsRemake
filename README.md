@@ -7,30 +7,28 @@ Brief description of the game, its objectives, and gameplay mechanics.
 
 
 Installation
+Options:
 
-Instructions for cloning the repository and setting up the development environment.
+    Download Game (Binaries): Get the pre-built game. Download the zip file containing the executable (bin) from [release-link].
+    Build from Source: Set up and compile the game yourself.
 
-bash
+Prerequisites:
 
-git clone [repo-link]
-cd asteroid-game
-// Additional setup steps
+    SDL2 library
+    SDL2 extensions: SDL2_image, SDL2_mixer, SDL2_ttf
+    OpenGL Mathematics (GLM) library (included in the repo)
 
-Usage
+Build Instructions:
 
-Details on how to run and play the game, including any necessary commands.
-Technologies
+    Clone the Repository: git clone [repo-link]
+    Navigate to Project Directory: cd asteroid-game
+    Build the Project: Follow platform-specific build instructions.
+    Play the Game: The executable is located at repoLocation\bin\x64\Release\SDL2_Asteroids.exe
+Libraries Used
 
     SDL2 for rendering and game controls
     C++ for core game logic
     glm for mathematical operations
 
-Contributing
-
-Guidelines on how to contribute to the project.
-License
-
-Information about the project's license.
-Screenshots/Demo
 
 ![GamePic](https://github.com/MTN95/AsteroidsRemake/assets/113786893/2a9234f4-60d3-4d85-a69a-246d08dcc6a7)
