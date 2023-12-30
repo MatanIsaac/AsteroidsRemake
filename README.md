@@ -7,11 +7,16 @@
 </div>
 
 
+### <div align="center">Disclaimer</div>
+This project was inspired by the One Lone Coder [Asteroids Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk).
+
+Recreated with SDL2 instead of the [olcPixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine).
 
 
 
 ### <div align="center">Brief Description of the Project </div>
 Developed over a few days as an engaging side project while pursuing my Computer Science studies.
+
 I chose to use the GLM library for 2D vector manipulation for its ease of use, although it might seem a bit of an overkill for a simple game. 
 
 The Game Objective, and Gameplay Mechanics
@@ -38,7 +43,9 @@ or
 Building from Source:
 
 This project is primarily developed using Microsoft Visual Studio Community. 
+
 If you're working with a different IDE, you might need to adjust the setup to compile and run the game. 
+
 This involves configuring the environment to match the dependencies and settings used in Visual Studio.
 
 ### <div align="center">Build Instructions</div>
