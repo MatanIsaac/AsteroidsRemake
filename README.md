@@ -43,6 +43,7 @@ or
 Building from Source:
 
 This project is primarily developed using Microsoft Visual Studio Community. 
+
 If you're working with a different IDE, you might need to adjust the setup to compile and run the game. 
 This involves configuring the environment to match the dependencies and settings used in Visual Studio.
 
