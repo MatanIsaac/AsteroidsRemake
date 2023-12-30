@@ -40,7 +40,7 @@ Download Game (Binaries): Get the pre-built game. Download the zip file containi
 
 or
 
-Building from Source:
+#### Building from Source:
 
 This project is primarily developed using Microsoft Visual Studio Community. 
 
