@@ -16,6 +16,7 @@ Recreated with SDL2 instead of the [olcPixelGameEngine](https://github.com/OneLo
 
 ### <div align="center">Brief Description of the Project </div>
 Developed over a few days as an engaging side project while pursuing my Computer Science studies.
+
 I chose to use the GLM library for 2D vector manipulation for its ease of use, although it might seem a bit of an overkill for a simple game. 
 
 The Game Objective, and Gameplay Mechanics
