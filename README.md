@@ -1,9 +1,6 @@
 Asteroid Game Introduction
 
 Brief description of the game, its objectives, and gameplay mechanics. 
-A simple remake, accelerate with the 'UP' key and rotate with 'LEFT' 'RIGHT'.
-Press 'SPACE' to shoot bullets.
-If you destroy all the asteroids you win, if you get hit by an asteroid you lose.
 
     A simple remake, destroy all the asteroids to win, if you get hit by an asteroid you lose. 
     accelerate with the 'UP' key and rotate with 'LEFT' 'RIGHT, Press 'SPACE' to shoot bullets.   
