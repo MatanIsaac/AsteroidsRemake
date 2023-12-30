@@ -8,7 +8,8 @@
 
 
 ### <div align="center">Disclaimer</div>
-This project was inspired by the One Lone Coder [Asteroids Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk), 
+This project was inspired by the One Lone Coder [Asteroids Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk).
+
 Recreated with SDL2 instead of the [olcPixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine)
 
 
