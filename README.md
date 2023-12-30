@@ -8,26 +8,35 @@
 
 
 ### <div align="center">Disclaimer</div>
-This project was inspired by the One Lone Coder [Asteroids Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk).
+
+<div align="center">    
+    
+This project was inspired by the One Lone Coder [Asteroids Tutorial](https://www.youtube.com/watch?v=QgDR8LrRZhk)
 
 Recreated with SDL2 instead of the [olcPixelGameEngine](https://github.com/OneLoneCoder/olcPixelGameEngine).
-
+</div>
 
 
 ### <div align="center">Brief Description of the Project </div>
+<div align="center">    
+    
 Developed over a few days as an engaging side project while pursuing my Computer Science studies.
 
 I chose to use the GLM library for 2D vector manipulation for its ease of use, although it might seem a bit of an overkill for a simple game. 
+</div>
 
+<div align="center">    
 The Game Objective, and Gameplay Mechanics
+</div>
 
     A simple remake, destroy all the asteroids to win, if you get hit by an asteroid you lose. 
     accelerate with the 'UP' key and rotate with 'LEFT' 'RIGHT, Press 'SPACE' to shoot bullets.   
 
 
-### <div align="center">Prerequisites Used</div>
-
-The prerequisites comes with the project so no need to download them yourself.
+### <div align="center">Libraries Used</div>
+<div align="center"> 
+The libraries comes with the project so no need to download them yourself.
+</div>
 
     (included in the repo)
     SDL2 library
@@ -36,17 +45,19 @@ The prerequisites comes with the project so no need to download them yourself.
 
 ## <div align="center">Installation</div>
 
+<div align="center"> 
 Download Game (Binaries): Get the pre-built game. Download the zip file containing the executable (bin) from [release-link].
+</div>
 
-or
+### <div align="center">Building from Source</div>
 
-Building from Source:
-
+<div align="center"> 
 This project is primarily developed using Microsoft Visual Studio Community. 
 
 If you're working with a different IDE, you might need to adjust the setup to compile and run the game. 
 
 This involves configuring the environment to match the dependencies and settings used in Visual Studio.
+</div>
 
 ### <div align="center">Build Instructions</div>
 
@@ -54,4 +65,16 @@ This involves configuring the environment to match the dependencies and settings
     Navigate to Project Directory
     Build the Project
     Play the Game: The executable is located at repoLocation\bin\x64\Release\SDL2_Asteroids.exe
+
+### <div align="center">Final Notes</div>
+
+<div align="center"> 
+This project, while small in scale, embraces the open-source philosophy. 
+
+You are encouraged to use, modify, and enhance the code as you see fit. 
+
+Contributions are welcomed !
+
+if you wish to contribute, submit a pull request with a clear explanation of your proposed changes for review. 
+</div>
 
