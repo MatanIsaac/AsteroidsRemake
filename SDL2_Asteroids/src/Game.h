@@ -105,7 +105,7 @@ private:
 
 	std::string mFPSText;
 	long double mFPS;
-	std::unique_ptr<TextRenderer, TextRendererDeleter> mFpsText;
+	//std::unique_ptr<TextRenderer, TextRendererDeleter> mFpsText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mDeadText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mRestartText;
 	

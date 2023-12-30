@@ -62,8 +62,8 @@ void Game::Update()
     mTicksCount = mTimer->PeekMilliseconds();
 
     mFPS = 1.0 / mDeltaTime;
-    mFPSText = "FPS: " + std::to_string( mFPS );
-    mFpsText->UpdateText(mFPSText);
+    //mFPSText = "FPS: " + std::to_string( mFPS );
+    //mFpsText->UpdateText(mFPSText);
 
     //  std::cout << "FPS: " << fps << '\n';
     //  std::cout << "DeltaTime: " << mDeltaTime << '\n';
@@ -96,7 +96,7 @@ void Game::Render()
 		{
 			a.second.Render(m_Renderer);
 		}
-		mFpsText->RenderText( m_Renderer, { 10.f, mFpsText->GetTextSize().y } );			
+		//mFpsText->RenderText( m_Renderer, { 10.f, mFpsText->GetTextSize().y } );			
 	}
 	else
 	{
@@ -288,7 +288,7 @@ void Game::RestartGame()
 	mTimer = new Timer();
 	mTimer->Start();
 
-	mFpsText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( mFPSText.c_str(), 24, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
+	//mFpsText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( mFPSText.c_str(), 24, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
 	
 	const char* deadText = "You Are DEAD!";
 	mDeadText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( deadText, 26, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
