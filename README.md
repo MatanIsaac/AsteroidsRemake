@@ -33,9 +33,9 @@ The Game Objective, and Gameplay Mechanics
     accelerate with the 'UP' key and rotate with 'LEFT' 'RIGHT, Press 'SPACE' to shoot bullets.   
 
 
-### <div align="center">Prerequisites Used</div>
+### <div align="center">Libraries Used</div>
 <div align="center"> 
-The prerequisites comes with the project so no need to download them yourself.
+The libraries comes with the project so no need to download them yourself.
 </div>
 
     (included in the repo)
