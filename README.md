@@ -3,7 +3,10 @@
 
 
 
-![GamePic](<div align="center"> https://github.com/MTN95/AsteroidsRemake/assets/113786893/2a9234f4-60d3-4d85-a69a-246d08dcc6a7 </div>)
+<div align="center">
+    <img src="https://github.com/MTN95/AsteroidsRemake/assets/113786893/2a9234f4-60d3-4d85-a69a-246d08dcc6a7" alt="GamePic">
+</div>
+
 
 
 
