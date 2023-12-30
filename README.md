@@ -36,12 +36,15 @@ Download Game (Binaries): Get the pre-built game. Download the zip file containi
 
 or
 
-Build from Source: Set up and compile the game yourself.
+Building from Source:
+This project is primarily developed using Microsoft Visual Studio Community. 
+If you're working with a different IDE, you might need to adjust the setup to compile and run the game. 
+This involves configuring the environment to match the dependencies and settings used in Visual Studio.
 
 ### <div align="center">Build Instructions</div>
 
-    Clone the Repository: git clone [repo-link]
-    Navigate to Project Directory: cd asteroid-game
-    Build the Project: Follow platform-specific build instructions.
+    Clone the Repository: git clone [[repo-link]](https://github.com/MTN95/AsteroidsRemake)
+    Navigate to Project Directory
+    Build the Project
     Play the Game: The executable is located at repoLocation\bin\x64\Release\SDL2_Asteroids.exe
 
