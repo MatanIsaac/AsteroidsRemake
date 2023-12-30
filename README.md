@@ -20,7 +20,9 @@ The prerequisites comes with the project so no need to download them yourself.
 Installation
 
 Download Game (Binaries): Get the pre-built game. Download the zip file containing the executable (bin) from [release-link].
+
 or
+
 Build from Source: Set up and compile the game yourself.
 
 Build Instructions:
