@@ -5,7 +5,7 @@ int main(int argc, char* argv[])
 {
 	auto game = Game::Getinstance();
 	
-	if(!game->Init("test", false))
+	if(!game->Init("MTN95-AsteroidsRemake", false))
 		printf("Failed to initialize game!");
 
 	game->RunEngine();
