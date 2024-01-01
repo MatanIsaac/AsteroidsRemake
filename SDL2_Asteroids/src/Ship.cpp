@@ -58,7 +58,7 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 		printf("Failed to load the asteroid hit sound! , Error: %s", Mix_GetError());
 	}
 
-	Mix_VolumeChunk( mAsteroidHitSound, MIX_MAX_VOLUME / 3 );
+	Mix_VolumeChunk( mAsteroidHitSound, MIX_MAX_VOLUME / 4 );
 	mAsteroidHitChannel = -1;
 
 }
