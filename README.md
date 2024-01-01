@@ -74,11 +74,11 @@ A few finishing touches are still to be dealt with, in order to make this game c
 
 Here's a TODO List:
     
- 1. Implement a Scoring System. 
- 2. Define a Victory Condition.
- 3. Incorporate Randomization to The Game.
- 4. Duplicated Asteroids Rotate The Same Direction Sometimes.
- 5. Tidy up code and Add Documentation to Everything.
+ 1. Implement a Scoring System. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
+ 3. Define a Victory Condition.
+ 4. Incorporate Randomization to The Game.
+ 5. Duplicated Asteroids Rotate The Same Direction Sometimes.
+ 6. Tidy up code and Add Documentation to Everything.
         
 
 You are encouraged to use, modify, and enhance the code as you see fit. 
