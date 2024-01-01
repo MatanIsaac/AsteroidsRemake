@@ -1,7 +1,5 @@
 # <div align="center">Classic Asteroids Remake </div>
 
-![GamePic]()
-
 
 <div align="center">
     <img src="https://github.com/MTN95/AsteroidsRemake/assets/113786893/d91239fc-5195-4fa8-af3c-f710fb0b316e" alt="GamePic">
