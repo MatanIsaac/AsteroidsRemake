@@ -1,9 +1,8 @@
 # <div align="center">Classic Asteroids Remake </div>
 
 
-
 <div align="center">
-    <img src="https://github.com/MTN95/AsteroidsRemake/assets/113786893/f0bc66b2-af96-48f2-a67d-a08c0ee18094" alt="GamePic">
+    <img src="https://github.com/MTN95/AsteroidsRemake/assets/113786893/d91239fc-5195-4fa8-af3c-f710fb0b316e" alt="GamePic">
 </div>
 
 
@@ -75,12 +74,11 @@ A few finishing touches are still to be dealt with, in order to make this game c
 
 Here's a TODO List:
     
-1. Adjust loud SFX levels.
-2. Implement a Scoring System.
-3. Define a Victory Condition.
-4. Icorporate Randomization to The Game.
-5. Duplicated Asteroids Rotate The Same Direction Sometimes.
-6. Tidy up code and Add Documentation to Everything.
+    1. Implement a Scoring System.
+    2. Define a Victory Condition.
+    3. Incorporate Randomization to The Game.
+    4. Duplicated Asteroids Rotate The Same Direction Sometimes.
+    5. Tidy up code and Add Documentation to Everything.
     
 
 You are encouraged to use, modify, and enhance the code as you see fit. 
