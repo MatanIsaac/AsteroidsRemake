@@ -74,7 +74,8 @@ A few finishing touches are still to be dealt with, in order to make this game c
 
 Here's a TODO List:
     
- 1. Implement a Scoring System. ![GitHub Icon](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuMJOFazy7OcwieUZP3Ep3YimHo1wWKurWqTySbvE7YA&s "GitHub Icon")
+ 1. Implement a Scoring System. ![GitHub Icon](![Untitled](https://github.com/MTN95/AsteroidsRemake/assets/113786893/8e9d42e0-0d8e-4ff8-9e95-ed7c81361035)
+ "GitHub Icon")
  2. Define a Victory Condition.
  3. Incorporate Randomization to The Game.
  4. Duplicated Asteroids Rotate The Same Direction Sometimes.
