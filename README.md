@@ -74,12 +74,12 @@ A few finishing touches are still to be dealt with, in order to make this game c
 
 Here's a TODO List:
     
-    1. Implement a Scoring System.
-    2. Define a Victory Condition.
-    3. Incorporate Randomization to The Game.
-    4. Duplicated Asteroids Rotate The Same Direction Sometimes.
-    5. Tidy up code and Add Documentation to Everything.
-    
+ 1. Implement a Scoring System. ![GitHub Icon](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuMJOFazy7OcwieUZP3Ep3YimHo1wWKurWqTySbvE7YA&s "GitHub Icon")
+ 2. Define a Victory Condition.
+ 3. Incorporate Randomization to The Game.
+ 4. Duplicated Asteroids Rotate The Same Direction Sometimes.
+ 5. Tidy up code and Add Documentation to Everything.
+        
 
 You are encouraged to use, modify, and enhance the code as you see fit. 
 
