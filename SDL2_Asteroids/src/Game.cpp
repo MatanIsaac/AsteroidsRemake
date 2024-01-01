@@ -68,29 +68,26 @@ void Game::Update()
 	mTicksCount = mTimer->PeekMilliseconds();
 
 	mFPS = 1.0 / mDeltaTime;
-	//mFPSText = "FPS: " + std::to_string( mFPS );
-	//mFpsText->UpdateText(mFPSText);
 
+	mPlayerWon = mAsteroidsMap.empty();
 
-	//  std::cout << "FPS: " << fps << '\n';
-	//  std::cout << "DeltaTime: " << mDeltaTime << '\n';
-
-	if ( !mIsDead )
+	if ( mShip )
 	{
-		mShip->Update( mDeltaTime );
-
-		mScoreStr = "Score: " + std::to_string( mScoreCount );
-		mScoreText->UpdateText( mScoreStr );
-
-		WrapCoordinates( mShip->GetSpaceObject() );
-
-		for ( auto& a : mAsteroidsMap )
+		if ( !mShip->GetIsDead())
 		{
-			a.second.Update( mDeltaTime );
-			//WrapCoordinates( a.GetSpaceObject());
+			mShip->Update( mDeltaTime );
+
+			mScoreStr = "Score: " + std::to_string( mScoreCount );
+			mScoreText->UpdateText( mScoreStr );
+
+			WrapCoordinates( mShip->GetSpaceObject() );
+
+			for ( auto& a : mAsteroidsMap )
+			{
+				a.second.Update( mDeltaTime );
+			}
 		}
 	}
-
 }
 
 void Game::Render()
@@ -98,23 +95,30 @@ void Game::Render()
 	// Prepare scene
 	SDL_SetRenderDrawColor( m_Renderer, 0, 0, 0, 255 );
 	SDL_RenderClear( m_Renderer );
-
-	if ( !mIsDead )
+	if ( mShip )
 	{
-		mShip->Render( m_Renderer );
-		for ( auto& a : mAsteroidsMap )
+		if ( !mShip->GetIsDead() )
 		{
-			a.second.Render( m_Renderer );
+			mShip->Render( m_Renderer );
+			for ( auto& a : mAsteroidsMap )
+			{
+				a.second.Render( m_Renderer );
+			}
+			//mFpsText->RenderText( m_Renderer, { 10.f, mFpsText->GetTextSize().y } );			
+			mScoreText->RenderText( m_Renderer, { 10.f, mScoreText->GetTextSize().y } );
+
+			if ( mPlayerWon )
+			{
+				mWinText->RenderText( m_Renderer, { 300.f, 250.f } );
+				mRestartText->RenderText( m_Renderer, { 150.f, 300.f } );
+			}
 		}
-		//mFpsText->RenderText( m_Renderer, { 10.f, mFpsText->GetTextSize().y } );			
-		mScoreText->RenderText( m_Renderer, { 10.f, mScoreText->GetTextSize().y } );
-	}
-	else
-	{
+		else
+		{
+			mDeadText->RenderText( m_Renderer, { 300.f, 250.f } );
+			mRestartText->RenderText( m_Renderer, { 150.f, 300.f } );
 
-		mDeadText->RenderText( m_Renderer, { 300.f, 250.f } );
-		mRestartText->RenderText( m_Renderer, { 150.f, 300.f } );
-
+		}
 	}
 	// Present scene
 	SDL_RenderPresent( m_Renderer );
@@ -155,14 +159,17 @@ void Game::ProcessInput()
 		Quit();
 	}
 
-	if ( mIsDead )
+	if ( mShip )
 	{
-		if ( input->isKeyPressed( SDL_SCANCODE_RETURN ) )
+		if ( mShip->GetIsDead() || mPlayerWon )
 		{
-			RestartGame();
+			if ( input->isKeyPressed( SDL_SCANCODE_RETURN ) )
+			{
+				RestartGame();
+			}
 		}
+		mShip->ProcessInput();
 	}
-	mShip->ProcessInput();
 }
 
 void Game::RunEngine()
@@ -302,12 +309,16 @@ void Game::RestartGame()
 
 	//mFpsText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( mFPSText.c_str(), 24, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
 
+	const char* winText = "You WON!";
+	mWinText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( winText, 30, SDL_Color( 255, 255, 255, 255 ) ), TextRendererDeleter() );
+	mWinText->CreateText();
+	
 	const char* deadText = "You Are DEAD!";
-	mDeadText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( deadText, 26, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
+	mDeadText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( deadText, 26, SDL_Color( 255, 255, 255, 255 ) ), TextRendererDeleter() );
 	mDeadText->CreateText();
 
 	const char* restartText = "Press enter to Restart or escape to exit.";
-	mRestartText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( restartText, 20, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
+	mRestartText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( restartText, 20, SDL_Color( 255, 255, 255, 255 ) ), TextRendererDeleter() );
 	mRestartText->CreateText();
 
 	mScoreStr = "Score: " + std::to_string( mScoreCount );
@@ -316,14 +327,17 @@ void Game::RestartGame()
 
 	mScoreCount = 0;
 	mAsteroidsIndex = 0;
+	mPlayerWon = false;
 
-	AddAsteroid( SpaceObject( { 75.f,450.f }, { 8.0f, -6.0f }, 0.5f, 48 ) );
-	AddAsteroid( SpaceObject( { 75.f,250.f }, { 8.0f, -6.0f }, 0.5f, 48 ) );
-	AddAsteroid( SpaceObject( { 185.f,225.f }, { 8.0f, -6.0f }, 0.5f, 48 ) );
-	AddAsteroid( SpaceObject( { 300.f,100.f }, { 8.0f, -6.0f }, 0.5f, 96 ) );
-	AddAsteroid( SpaceObject( { 600.f,130.f }, { 8.0f, -6.0f }, 0.5f, 96 ) );
-	AddAsteroid( SpaceObject( { 300.f,400.f }, { 8.0f, -6.0f }, 0.5f, 96 ) );
-	AddAsteroid( SpaceObject( { 600.f,400.f }, { 8.0f, -6.0f }, 0.5f, 96 ) );
+	mAsteroidsMap.clear();
+
+	AddAsteroid( SpaceObject( { 75.f,450.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
+	AddAsteroid( SpaceObject( { 75.f,250.f },  { 18.0f, -15.0f },  0.5f, 48 ) );
+	AddAsteroid( SpaceObject( { 185.f,225.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
+	AddAsteroid( SpaceObject( { 300.f,100.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+	AddAsteroid( SpaceObject( { 600.f,130.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+	AddAsteroid( SpaceObject( { 300.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+	AddAsteroid( SpaceObject( { 600.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
 
 	std::string startGameSoundSrc = std::string( SOLUTION_DIR ) + "Assets/RestartGame.wav";
 	mStartGameSound = Mix_LoadWAV( startGameSoundSrc.c_str() );
@@ -332,16 +346,10 @@ void Game::RestartGame()
 		printf( "Failed to load the asteroid hit sound! , Error: %s", Mix_GetError() );
 	}
 
-	Mix_VolumeChunk( mStartGameSound, MIX_MAX_VOLUME / 3 );
+	Mix_VolumeChunk( mStartGameSound, MIX_MAX_VOLUME / 2 );
 	mStartGameChannel;
 
 	Mix_PlayChannel( mStartGameChannel, mStartGameSound, 0 );
-	mIsDead = false;
 }
 
-void Game::SetIsDead( bool isDead )
-{
-	mIsDead = isDead;
-	mAsteroidsMap.clear();
-}
 

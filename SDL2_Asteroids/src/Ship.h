@@ -30,6 +30,10 @@ public:
 
     void HaltAllSounds();
 
+    bool GetIsDead() const noexcept { return mIsDead; }
+
+    void SetIsDead( bool isDead ) {mIsDead = isDead;}
+
 private:
 
     glm::vec2 GetShipForwardVector() const
@@ -42,6 +46,8 @@ private:
     std::vector<std::pair<float, float>> vecModelShip;
     SpaceObject mShip;    
     SDL_Color mColor;
+
+    bool mIsDead;
 
     float mAccelerationFactor;
 

@@ -5,7 +5,7 @@
 #include "InputManager.hpp"
 
 Ship::Ship( const glm::vec2& position, const SDL_Color& color )
-	: mColor( color )
+	: mColor( color ), mIsDead(false)
 {
 	// A simple Isoceles Triangle
 	vecModelShip =
@@ -21,7 +21,7 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 	mShip.mVelocity = { 0.f,0.f };
 	mShip.mRotation = 0.0f;
 
-	mBulletSpeed = 150.f;
+	mBulletSpeed = 200.f;
 
 	std::string hoverSoundSrc = std::string( SOLUTION_DIR ) + "Assets/spaceshipHover.wav";
 	mHoverSound = Mix_LoadWAV( hoverSoundSrc.c_str() );
@@ -29,6 +29,7 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 	{
 		printf("Failed to load the spaceship hover sound! , Error: %s", Mix_GetError());
 	}
+	Mix_VolumeChunk( mHoverSound, MIX_MAX_VOLUME * 10);
 	mHoverChannel = -1;
 	
 	std::string laserSoundSrc = std::string( SOLUTION_DIR ) + "Assets/LaserShoot.wav";
@@ -38,7 +39,7 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 		printf("Failed to load the spaceship laser sound! , Error: %s", Mix_GetError());
 	}
 
-	Mix_VolumeChunk( mLaserSound, MIX_MAX_VOLUME / 3 );
+	Mix_VolumeChunk( mLaserSound, MIX_MAX_VOLUME / 7 );
 	mLaserChannel = -1;
 	
 	std::string deadSoundSrc = std::string( SOLUTION_DIR ) + "Assets/ShipDead.wav";
@@ -48,7 +49,7 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 		printf("Failed to load the spaceship hit sound! , Error: %s", Mix_GetError());
 	}
 
-	Mix_VolumeChunk( mDeadSound, MIX_MAX_VOLUME / 3 );
+	Mix_VolumeChunk( mDeadSound, MIX_MAX_VOLUME / 5 );
 	mDeadChannel = -1;
 	
 	std::string asteroidHitSoundSrc = std::string( SOLUTION_DIR ) + "Assets/AsteroidExplosion.wav";
@@ -58,7 +59,7 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 		printf("Failed to load the asteroid hit sound! , Error: %s", Mix_GetError());
 	}
 
-	Mix_VolumeChunk( mAsteroidHitSound, MIX_MAX_VOLUME / 4 );
+	Mix_VolumeChunk( mAsteroidHitSound, MIX_MAX_VOLUME / 8 );
 	mAsteroidHitChannel = -1;
 
 }
@@ -67,7 +68,7 @@ void Ship::ProcessInput()
 {
 	auto game = Game::Getinstance();
 	auto input = venture::InputManager::get();
-	if ( !game->GetIsDead() )
+	if ( !mIsDead )
 	{
 		// Rotation
 		if ( input->isKeyDown( SDL_SCANCODE_LEFT ) )
@@ -119,7 +120,7 @@ void Ship::Update( float deltaTime )
 		{
 			Mix_PlayChannel(3,mDeadSound,0);
 			Mix_HaltChannel(mHoverChannel);
-			game->SetIsDead( true );
+			SetIsDead( true );
 			break; 
 		}
 		else

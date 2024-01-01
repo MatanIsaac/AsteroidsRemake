@@ -69,10 +69,6 @@ public:
 
 	void RestartGame();
 
-	bool GetIsDead() const noexcept { return mIsDead; }
-
-	void SetIsDead(bool isDead); 
-
 	void AddScore(int score) { mScoreCount += score; }
 
 private:
@@ -86,9 +82,9 @@ private:
         , mFPS(0.0)
         , mTicksCount(0)
 		, mAsteroidsIndex(0)
-		, mIsDead(false)
 		, mStartGameSound(nullptr)
 		, mScoreCount(0)
+		, mPlayerWon(false)
 	{ }
 
 	static Game* s_Instance;
@@ -97,6 +93,7 @@ private:
 	SDL_Renderer* m_Renderer;
 
 	bool m_IsRunning;
+	bool mPlayerWon;
 
 	std::unordered_map<int,Asteroid> mAsteroidsMap;
 
@@ -110,6 +107,7 @@ private:
 	std::string mFPSText;
 	long double mFPS;
 	//std::unique_ptr<TextRenderer, TextRendererDeleter> mFpsText;
+	std::unique_ptr<TextRenderer, TextRendererDeleter> mWinText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mDeadText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mRestartText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mScoreText;	
@@ -117,8 +115,6 @@ private:
 	int mScoreCount;
 	int mAsteroidsIndex;
 	int mStartGameChannel = 0;
-
-	bool mIsDead;
 
 	Mix_Chunk* mStartGameSound;
 
