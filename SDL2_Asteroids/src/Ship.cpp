@@ -141,6 +141,7 @@ void Ship::Update( float deltaTime )
 			
 			if ( game->IsPointInCircle( asteroid.GetPosition().x, asteroid.GetPosition().y, static_cast< float >( asteroid.GetSize() ), bullet.mPosition.x, bullet.mPosition.y ) )
 			{
+				game->AddScore(1);
 				Mix_PlayChannel(4, mAsteroidHitSound,0);
 				auto& pos = asteroid.GetPosition();
 				if ( asteroid.GetSize() > 12 )

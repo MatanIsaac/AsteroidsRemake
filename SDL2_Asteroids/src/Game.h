@@ -73,6 +73,8 @@ public:
 
 	void SetIsDead(bool isDead); 
 
+	void AddScore(int score) { mScoreCount += score; }
+
 private:
     Game()
         : m_Window(nullptr)
@@ -86,6 +88,7 @@ private:
 		, mAsteroidsIndex(0)
 		, mIsDead(false)
 		, mStartGameSound(nullptr)
+		, mScoreCount(0)
 	{ }
 
 	static Game* s_Instance;
@@ -103,17 +106,21 @@ private:
     uint64_t mTicksCount;
     float mDeltaTime;
 
+	std::string mScoreStr;
 	std::string mFPSText;
 	long double mFPS;
 	//std::unique_ptr<TextRenderer, TextRendererDeleter> mFpsText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mDeadText;
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mRestartText;
-	
+	std::unique_ptr<TextRenderer, TextRendererDeleter> mScoreText;	
+
+	int mScoreCount;
 	int mAsteroidsIndex;
+	int mStartGameChannel = 0;
 
 	bool mIsDead;
 
 	Mix_Chunk* mStartGameSound;
-	int mStartGameChannel = 0;
+
 };
 

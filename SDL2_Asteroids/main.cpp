@@ -3,10 +3,9 @@
 
 /*
 * TODO List:
-* 1. Adjust loud SFX levels.
 * 2. Implement a Scoring System.
 * 3. Define a Victory Condition.
-* 4. Icorporate Randomization to The Game.
+* 4. Incorporate Randomization to The Game.
 * 5. Duplicated Asteroids Rotate The Same Direction Sometimes.
 * 6. Tidy up code and Add Documentation to Everything.
 */ 

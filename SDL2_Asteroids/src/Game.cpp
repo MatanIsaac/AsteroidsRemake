@@ -4,31 +4,35 @@
 
 Game* Game::s_Instance = nullptr;
 
-bool Game::Init(const char* title, bool fullscreen)
+bool Game::Init( const char* title, bool fullscreen )
 {
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        std::cout << "Failed to initialize SDL! SDL_Error: " << SDL_GetError() << '\n';
-        return false;
-    }
+	if ( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
+	{
+		std::cout << "Failed to initialize SDL! SDL_Error: " << SDL_GetError() << '\n';
+		return false;
+	}
 
-    int window_flags = 0;
+	int window_flags = 0;
 
-    if (fullscreen) {
-        window_flags = SDL_WINDOW_FULLSCREEN;
-    }
+	if ( fullscreen )
+	{
+		window_flags = SDL_WINDOW_FULLSCREEN;
+	}
 
-    m_Window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
+	m_Window = SDL_CreateWindow( title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags );
 
-    if (m_Window == nullptr) {
-        std::cout << "Failed to Create Window! SDL_Error: " << SDL_GetError() << '\n';
-        return false;
-    }
+	if ( m_Window == nullptr )
+	{
+		std::cout << "Failed to Create Window! SDL_Error: " << SDL_GetError() << '\n';
+		return false;
+	}
 
-    m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (m_Renderer == nullptr) {
-        std::cout << "Failed to Create Renderer! SDL_Error: " << SDL_GetError() << '\n';
-        return false;
-    }
+	m_Renderer = SDL_CreateRenderer( m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	if ( m_Renderer == nullptr )
+	{
+		std::cout << "Failed to Create Renderer! SDL_Error: " << SDL_GetError() << '\n';
+		return false;
+	}
 
 	int image_flags = IMG_INIT_PNG | IMG_INIT_JPG;
 	if ( !( IMG_Init( image_flags ) & image_flags ) )
@@ -37,46 +41,52 @@ bool Game::Init(const char* title, bool fullscreen)
 		throw std::runtime_error( "(Game): Failed to Initialize SDL_image!\n" );
 	}
 
-    if (TTF_Init() != 0) {
-        std::cout << "SDL_ttf could not initialize! SDL_ttf Error : " << TTF_GetError() << std::endl;
-        return false;
-    }
+	if ( TTF_Init() != 0 )
+	{
+		std::cout << "SDL_ttf could not initialize! SDL_ttf Error : " << TTF_GetError() << std::endl;
+		return false;
+	}
 
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cout << "SDL_Mixer could not initialize! Mix_Error : " << Mix_GetError() << std::endl;
-        return false;
-    }
+	if ( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+	{
+		std::cout << "SDL_Mixer could not initialize! Mix_Error : " << Mix_GetError() << std::endl;
+		return false;
+	}
 
-    RestartGame();
+	RestartGame();
 
-    m_IsRunning = true;
-    return true;
+	m_IsRunning = true;
+	return true;
 }
 
 void Game::Update()
 {
-    mDeltaTime = (mTimer->PeekMilliseconds() - mTicksCount) / 1000.0f;
-    if (mDeltaTime > 0.05f) 
-        mDeltaTime = 0.05f;
-    
-    mTicksCount = mTimer->PeekMilliseconds();
+	mDeltaTime = ( mTimer->PeekMilliseconds() - mTicksCount ) / 1000.0f;
+	if ( mDeltaTime > 0.05f )
+		mDeltaTime = 0.05f;
 
-    mFPS = 1.0 / mDeltaTime;
-    //mFPSText = "FPS: " + std::to_string( mFPS );
-    //mFpsText->UpdateText(mFPSText);
+	mTicksCount = mTimer->PeekMilliseconds();
 
-    //  std::cout << "FPS: " << fps << '\n';
-    //  std::cout << "DeltaTime: " << mDeltaTime << '\n';
+	mFPS = 1.0 / mDeltaTime;
+	//mFPSText = "FPS: " + std::to_string( mFPS );
+	//mFpsText->UpdateText(mFPSText);
+
+
+	//  std::cout << "FPS: " << fps << '\n';
+	//  std::cout << "DeltaTime: " << mDeltaTime << '\n';
 
 	if ( !mIsDead )
 	{
-		mShip->Update(mDeltaTime);
-    
-		WrapCoordinates(mShip->GetSpaceObject());
+		mShip->Update( mDeltaTime );
 
-		for (auto& a : mAsteroidsMap)
+		mScoreStr = "Score: " + std::to_string( mScoreCount );
+		mScoreText->UpdateText( mScoreStr );
+
+		WrapCoordinates( mShip->GetSpaceObject() );
+
+		for ( auto& a : mAsteroidsMap )
 		{
-			a.second.Update(mDeltaTime);
+			a.second.Update( mDeltaTime );
 			//WrapCoordinates( a.GetSpaceObject());
 		}
 	}
@@ -86,56 +96,57 @@ void Game::Update()
 void Game::Render()
 {
 	// Prepare scene
-	SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
-	SDL_RenderClear(m_Renderer);
+	SDL_SetRenderDrawColor( m_Renderer, 0, 0, 0, 255 );
+	SDL_RenderClear( m_Renderer );
 
 	if ( !mIsDead )
 	{
-		mShip->Render(m_Renderer);
+		mShip->Render( m_Renderer );
 		for ( auto& a : mAsteroidsMap )
 		{
-			a.second.Render(m_Renderer);
+			a.second.Render( m_Renderer );
 		}
 		//mFpsText->RenderText( m_Renderer, { 10.f, mFpsText->GetTextSize().y } );			
+		mScoreText->RenderText( m_Renderer, { 10.f, mScoreText->GetTextSize().y } );
 	}
 	else
 	{
-		
-		mDeadText->RenderText( m_Renderer, { 300.f, 250.f} );
+
+		mDeadText->RenderText( m_Renderer, { 300.f, 250.f } );
 		mRestartText->RenderText( m_Renderer, { 150.f, 300.f } );
 
 	}
-    // Present scene
-    SDL_RenderPresent(m_Renderer);
+	// Present scene
+	SDL_RenderPresent( m_Renderer );
 }
 
 
 void Game::Clean()
 {
-    for ( auto& a : mAsteroidsMap )
-    {
-        a.second.Clean();
-    }
+	for ( auto& a : mAsteroidsMap )
+	{
+		a.second.Clean();
+	}
 
-    mShip->Clean();
+	mShip->Clean();
 
-    SDL_DestroyRenderer(m_Renderer);
-    m_Renderer = nullptr;
+	SDL_DestroyRenderer( m_Renderer );
+	m_Renderer = nullptr;
 
-    SDL_DestroyWindow(m_Window);
-    m_Window = nullptr;
+	SDL_DestroyWindow( m_Window );
+	m_Window = nullptr;
 
-    TTF_Quit();
-    IMG_Quit();
+	TTF_Quit();
+	IMG_Quit();
 
 	Mix_CloseAudio();
 	Mix_Quit();
-    SDL_Quit();
+	SDL_Quit();
 }
 
 void Game::ProcessInput()
 {
-    SDL_Event event;
+	SDL_Event event;
 	auto input = InputManager::get();
 	input->ProcessInput( &event );
 
@@ -151,20 +162,21 @@ void Game::ProcessInput()
 			RestartGame();
 		}
 	}
-    mShip->ProcessInput();
+	mShip->ProcessInput();
 }
 
 void Game::RunEngine()
 {
-    while (m_IsRunning) {
-        ProcessInput();
-        Update();
-        Render();
-		
-        InputManager::get()->UpdatePrevInput();
+	while ( m_IsRunning )
+	{
+		ProcessInput();
+		Update();
+		Render();
 
-    }
-    Clean();
+		InputManager::get()->UpdatePrevInput();
+
+	}
+	Clean();
 }
 
 void Game::DrawLine( SDL_Renderer* renderer, const glm::vec2& point1, const glm::vec2& point2 )
@@ -213,11 +225,11 @@ void Game::DrawWireFrameModel( SDL_Renderer* renderer, const std::vector<std::pa
 
 		// Clamp values to the range of int
 		auto clampToIntRange = []( double value )
-		{
-			constexpr double Max = std::numeric_limits<float>::max();
-			constexpr double Min = std::numeric_limits<float>::min();
-			return static_cast< int >( std::max( Min, std::min( Max, value ) ) );
-		};
+			{
+				constexpr double Max = std::numeric_limits<float>::max();
+				constexpr double Min = std::numeric_limits<float>::min();
+				return static_cast< int >( std::max( Min, std::min( Max, value ) ) );
+			};
 
 		glm::vec2 A( clampToIntRange( ax ), clampToIntRange( ay ) );
 		glm::vec2 B( clampToIntRange( bx ), clampToIntRange( by ) );
@@ -228,8 +240,8 @@ void Game::DrawWireFrameModel( SDL_Renderer* renderer, const std::vector<std::pa
 }
 
 void Game::WrapCoordinates( SpaceObject& obj )
-{   
-    auto fSize = static_cast< float >( obj.mSize );
+{
+	auto fSize = static_cast< float >( obj.mSize );
 
 	if ( obj.mPosition.x > SCREEN_WIDTH + fSize )
 	{
@@ -275,10 +287,10 @@ bool Game::IsPointInCircle( float cx, float cy, float mRadius, float x, float y 
 	return sqrt( ( x - cx ) * ( x - cx ) + ( y - cy ) * ( y - cy ) ) < mRadius;
 }
 
-void Game::AddAsteroid(const SpaceObject& obj)
+void Game::AddAsteroid( const SpaceObject& obj )
 {
 	++mAsteroidsIndex;
-	mAsteroidsMap.insert( {mAsteroidsIndex, Asteroid(obj, SDL_Color( 255, 255, 0, 255 )) });
+	mAsteroidsMap.insert( { mAsteroidsIndex, Asteroid( obj, SDL_Color( 255, 255, 0, 255 ) ) } );
 }
 
 void Game::RestartGame()
@@ -289,16 +301,20 @@ void Game::RestartGame()
 	mTimer->Start();
 
 	//mFpsText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( mFPSText.c_str(), 24, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
-	
+
 	const char* deadText = "You Are DEAD!";
 	mDeadText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( deadText, 26, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
 	mDeadText->CreateText();
 
 	const char* restartText = "Press enter to Restart or escape to exit.";
-	mRestartText= std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( restartText, 20, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
+	mRestartText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( restartText, 20, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
 	mRestartText->CreateText();
 
-	
+	mScoreStr = "Score: " + std::to_string( mScoreCount );
+	mScoreText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( mScoreStr.c_str(), 20, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
+	mScoreText->CreateText();
+
+	mScoreCount = 0;
 	mAsteroidsIndex = 0;
 
 	AddAsteroid( SpaceObject( { 75.f,450.f }, { 8.0f, -6.0f }, 0.5f, 48 ) );
@@ -319,7 +335,7 @@ void Game::RestartGame()
 	Mix_VolumeChunk( mStartGameSound, MIX_MAX_VOLUME / 3 );
 	mStartGameChannel;
 
-	Mix_PlayChannel(mStartGameChannel,mStartGameSound,0);
+	Mix_PlayChannel( mStartGameChannel, mStartGameSound, 0 );
 	mIsDead = false;
 }
 
