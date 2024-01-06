@@ -72,14 +72,14 @@ This project, while small in scale, embraces the open-source philosophy.
 
 A few finishing touches are still to be dealt with, in order to make this game complele. 
 
-Here's a TODO List:
+Here's a TODO List: (Done tasks are marked with - ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2))
     
-    1. Implement a Scoring System.
-    2. Define a Victory Condition.
-    3. Incorporate Randomization to The Game.
-    4. Duplicated Asteroids Rotate The Same Direction Sometimes.
-    5. Tidy up code and Add Documentation to Everything.
-    
+ 1. Implement a Scoring System. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
+ 2. Define a Victory Condition. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
+ 3. Incorporate Randomization to The Game.
+ 4. Duplicated Asteroids Rotate The Same Direction Sometimes.
+ 5. Tidy up code and Add Documentation to Everything.
+        
 
 You are encouraged to use, modify, and enhance the code as you see fit. 
 
