@@ -147,11 +147,13 @@ void Ship::Update( float deltaTime )
 				auto& pos = asteroid.GetPosition();
 				if ( asteroid.GetSize() > 12 )
 				{
-					double angle1 = static_cast< float >( rand() ) / RAND_MAX * 2.0f * M_PI;
-					double angle2 = static_cast< float >( rand() ) / RAND_MAX * 2.0f * M_PI;
+					double angle1 = static_cast< float >( rand() ) / RAND_MAX * 2.4f * M_PI;
+					double angle2 = static_cast< float >( rand() ) / RAND_MAX * 1.7f * M_PI;
+					double angle3 = static_cast< float >( rand() ) / RAND_MAX * 1.3f * M_PI;
+					double angle4 = static_cast< float >( rand() ) / RAND_MAX * 2.8f * M_PI;
 
-					SpaceObject child1( pos, glm::vec2{ 35.0f * sin( angle1 ), 35.0f * cos( angle1 ) }, 0.5f, asteroid.GetSize() / 2 );
-					SpaceObject child2( pos, glm::vec2{ 35.0f * sin( angle2 ), 35.0f * cos( angle2 ) }, 0.5f, asteroid.GetSize() / 2 );
+					SpaceObject child1( pos, glm::vec2{ 35.0f * sin( angle1 ), 30.0f * cos( angle2 ) }, 1.5f, asteroid.GetSize() / 2 );
+					SpaceObject child2( pos, glm::vec2{ 35.0f * sin( angle3 ), 45.0f * cos( angle4 ) }, 0.8f, asteroid.GetSize() / 2 );
 
 					game->AddAsteroid( child1 );
 					game->AddAsteroid( child2 );

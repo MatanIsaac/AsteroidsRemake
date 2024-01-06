@@ -1,8 +1,15 @@
 #include "Game.h"
 #include "InputManager.hpp"
 #include <iostream>
+#include <random>
 
 Game* Game::s_Instance = nullptr;
+const float Game::MIN_X_VELOCITY = -30.0f; 
+const float Game::MAX_X_VELOCITY =  30.0f;
+const float Game::MIN_Y_VELOCITY = -30.0f;
+const float Game::MAX_Y_VELOCITY =  30.0f;
+const float Game::MIN_ROT = -1.0f;
+const float Game::MAX_ROT =  1.0f;
 
 bool Game::Init( const char* title, bool fullscreen )
 {
@@ -300,6 +307,40 @@ void Game::AddAsteroid( const SpaceObject& obj )
 	mAsteroidsMap.insert( { mAsteroidsIndex, Asteroid( obj, SDL_Color( 255, 255, 0, 255 ) ) } );
 }
 
+void Game::AddRandomAsteroids()
+{
+	static std::mt19937 rng( std::random_device{}( ) );
+	// Random Asteroids Count
+	static std::uniform_int_distribution<int> asteroidsDist( MIN_ASTEROIDS_COUNT, MIN_ASTEROIDS_COUNT );
+	// Random Position On the Screen in Between (0,0)->(ScreenWidth,ScreenHeight)
+	static std::uniform_real_distribution<float> screenWidthDist( 0.f, static_cast<float>(SCREEN_WIDTH) );
+	static std::uniform_real_distribution<float> screenHeightDist( 0.f, static_cast< float >( SCREEN_HEIGHT - 200) );
+	// Random Velocity 
+	static std::uniform_real_distribution<float> xVelocityDist( MIN_X_VELOCITY, MAX_X_VELOCITY );
+	static std::uniform_real_distribution<float> yVelocityDist( MIN_Y_VELOCITY, MAX_Y_VELOCITY );
+	// Random Rotation
+	static std::uniform_real_distribution<float> rotationDist( MIN_ROT, MAX_ROT );
+	// Random Size
+	static std::uniform_int_distribution<int> sizeDist( MIN_SIZE, MAX_SIZE );
+
+	glm::vec2 pos; 
+	glm::vec2 vel; 
+	
+	int maxAsteroids = asteroidsDist(rng);
+
+	for ( int i = 0; i < maxAsteroids; ++i )
+	{
+		pos.x = screenWidthDist( rng );
+		pos.y = screenHeightDist( rng );
+		vel.x = xVelocityDist( rng );
+		vel.y = yVelocityDist(rng);
+		float rot = rotationDist(rng);
+		int size = sizeDist(rng);
+		AddAsteroid( SpaceObject( pos, vel, rot, size ) );
+	}
+
+}
+
 void Game::RestartGame()
 {
 	mShip = new Ship( { 400.f, 500.f }, { 0, 255, 0, 255 } );
@@ -331,13 +372,15 @@ void Game::RestartGame()
 
 	mAsteroidsMap.clear();
 
-	AddAsteroid( SpaceObject( { 75.f,450.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
-	AddAsteroid( SpaceObject( { 75.f,250.f },  { 18.0f, -15.0f },  0.5f, 48 ) );
-	AddAsteroid( SpaceObject( { 185.f,225.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
-	AddAsteroid( SpaceObject( { 300.f,100.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
-	AddAsteroid( SpaceObject( { 600.f,130.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
-	AddAsteroid( SpaceObject( { 300.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
-	AddAsteroid( SpaceObject( { 600.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+// 	AddAsteroid( SpaceObject( { 75.f,450.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
+// 	AddAsteroid( SpaceObject( { 75.f,250.f },  { 18.0f, -15.0f },  0.5f, 48 ) );
+// 	AddAsteroid( SpaceObject( { 185.f,225.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
+// 	AddAsteroid( SpaceObject( { 300.f,100.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+// 	AddAsteroid( SpaceObject( { 600.f,130.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+// 	AddAsteroid( SpaceObject( { 300.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+// 	AddAsteroid( SpaceObject( { 600.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
+
+	AddRandomAsteroids();
 
 	std::string startGameSoundSrc = std::string( SOLUTION_DIR ) + "Assets/RestartGame.wav";
 	mStartGameSound = Mix_LoadWAV( startGameSoundSrc.c_str() );

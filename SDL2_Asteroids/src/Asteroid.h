@@ -38,10 +38,7 @@ private:
 
 	static const int MIN_SIZE = 48;
 	static const int MAX_SIZE = 96;
-	static const float MIN_X_VELOCITY;
-	static const float MAX_X_VELOCITY;
-	static const float MIN_Y_VELOCITY;
-	static const float MAX_Y_VELOCITY;
+
 };
 
 

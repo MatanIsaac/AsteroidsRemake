@@ -66,6 +66,7 @@ public:
 	bool IsPointInCircle( float cx, float cy, float mRadius, float x, float y );
 
 	void AddAsteroid( const SpaceObject& obj);
+	void AddRandomAsteroids();
 
 	void RestartGame();
 
@@ -115,6 +116,18 @@ private:
 	int mScoreCount;
 	int mAsteroidsIndex;
 	int mStartGameChannel = 0;
+
+	static const int MIN_ASTEROIDS_COUNT = 15;
+	static const int MAX_ASTEROIDS_COUNT = 35;
+	static const int MIN_SIZE = 24;
+	static const int MAX_SIZE = 96;
+
+	static const float MIN_X_VELOCITY;
+	static const float MAX_X_VELOCITY;
+	static const float MIN_Y_VELOCITY;
+	static const float MAX_Y_VELOCITY;
+	static const float MIN_ROT;
+	static const float MAX_ROT;
 
 	Mix_Chunk* mStartGameSound;
 
