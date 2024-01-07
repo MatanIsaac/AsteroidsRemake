@@ -4,10 +4,13 @@
 #include "Game.h"
 #include "InputManager.hpp"
 
+const float Ship::topPointOffset = 25.0f;
+const float Ship::mRotationSpeed = 5.0f;
+
 Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 	: mColor( color ), mIsDead(false)
 {
-	// A simple Isoceles Triangle
+	// A Simple Isosceles Triangle
 	vecModelShip =
 	{
 		{  0.0f, -25.0f },
@@ -23,60 +26,23 @@ Ship::Ship( const glm::vec2& position, const SDL_Color& color )
 
 	mBulletSpeed = 200.f;
 
-	std::string hoverSoundSrc = std::string( SOLUTION_DIR ) + "Assets/spaceshipHover.wav";
-	mHoverSound = Mix_LoadWAV( hoverSoundSrc.c_str() );
-	if ( !mHoverSound )
-	{
-		printf("Failed to load the spaceship hover sound! , Error: %s", Mix_GetError());
-	}
-	Mix_VolumeChunk( mHoverSound, MIX_MAX_VOLUME * 10);
-	mHoverChannel = -1;
-	
-	std::string laserSoundSrc = std::string( SOLUTION_DIR ) + "Assets/LaserShoot.wav";
-	mLaserSound = Mix_LoadWAV( laserSoundSrc.c_str() );
-	if ( !mLaserSound )
-	{
-		printf("Failed to load the spaceship laser sound! , Error: %s", Mix_GetError());
-	}
-
-	Mix_VolumeChunk( mLaserSound, MIX_MAX_VOLUME / 7 );
-	mLaserChannel = -1;
-	
-	std::string deadSoundSrc = std::string( SOLUTION_DIR ) + "Assets/ShipDead.wav";
-	mDeadSound = Mix_LoadWAV( deadSoundSrc.c_str() );
-	if ( !mDeadSound )
-	{
-		printf("Failed to load the spaceship hit sound! , Error: %s", Mix_GetError());
-	}
-
-	Mix_VolumeChunk( mDeadSound, MIX_MAX_VOLUME / 5 );
-	mDeadChannel = -1;
-	
-	std::string asteroidHitSoundSrc = std::string( SOLUTION_DIR ) + "Assets/AsteroidExplosion.wav";
-	mAsteroidHitSound = Mix_LoadWAV( asteroidHitSoundSrc.c_str() );
-	if ( !mAsteroidHitSound )
-	{
-		printf("Failed to load the asteroid hit sound! , Error: %s", Mix_GetError());
-	}
-
-	Mix_VolumeChunk( mAsteroidHitSound, MIX_MAX_VOLUME / 8 );
-	mAsteroidHitChannel = -1;
+	LoadAndSetSFX();
 
 }
 
 void Ship::ProcessInput()
 {
-	auto game = Game::Getinstance();
+	auto game = Game::GetInstance();
 	auto input = venture::InputManager::get();
 	if ( !mIsDead )
 	{
 		// Rotation
 		if ( input->isKeyDown( SDL_SCANCODE_LEFT ) )
 
-			mShip.mRotation -= 5.f * game->GetDeltaTime();
+			mShip.mRotation -= mRotationSpeed * game->GetDeltaTime();
 
 		if ( input->isKeyDown( SDL_SCANCODE_RIGHT ) )
-			mShip.mRotation += 5.f * game->GetDeltaTime();
+			mShip.mRotation += mRotationSpeed * game->GetDeltaTime();
 
 
 		// Acceleration
@@ -107,83 +73,15 @@ void Ship::Update( float deltaTime )
 {
 	MoveShip(deltaTime);
 
-	auto game = Game::Getinstance();
-	auto& asteroidsMap = game->GetAsteroidsMap();
-
-	vector<Asteroid> newAsteroids;
-	std::vector<Asteroid*> asteroidsToRemove;
-
-	for ( auto asteroidIt = asteroidsMap.begin(); asteroidIt != asteroidsMap.end();)
-	{
-		Asteroid* asteroid = &asteroidIt->second;
-		if ( IsCollidingWithAsteroid( asteroid ) )
-		{
-			Mix_PlayChannel(3,mDeadSound,0);
-			Mix_HaltChannel(mHoverChannel);
-			SetIsDead( true );
-			break; 
-		}
-		else
-		{
-			++asteroidIt;
-		}
-
-	}
-
-	for ( auto bulletIt = mBulletsVec.begin(); bulletIt != mBulletsVec.end();)
-	{
-		bool bulletHit = false;
-		SpaceObject& bullet = *bulletIt;
-		MoveBullet( bullet, deltaTime );
-
-		for ( auto asteroidIt = asteroidsMap.begin(); asteroidIt != asteroidsMap.end();)
-		{
-			Asteroid& asteroid = asteroidIt->second;
-			
-			if ( game->IsPointInCircle( asteroid.GetPosition().x, asteroid.GetPosition().y, static_cast< float >( asteroid.GetSize() ), bullet.mPosition.x, bullet.mPosition.y ) )
-			{
-				game->AddScore(1);
-				Mix_PlayChannel(4, mAsteroidHitSound,0);
-				auto& pos = asteroid.GetPosition();
-				if ( asteroid.GetSize() > 12 )
-				{
-					double angle1 = static_cast< float >( rand() ) / RAND_MAX * 2.4f * M_PI;
-					double angle2 = static_cast< float >( rand() ) / RAND_MAX * 1.7f * M_PI;
-					double angle3 = static_cast< float >( rand() ) / RAND_MAX * 1.3f * M_PI;
-					double angle4 = static_cast< float >( rand() ) / RAND_MAX * 2.8f * M_PI;
-
-					SpaceObject child1( pos, glm::vec2{ 35.0f * sin( angle1 ), 30.0f * cos( angle2 ) }, 1.5f, asteroid.GetSize() / 2 );
-					SpaceObject child2( pos, glm::vec2{ 35.0f * sin( angle3 ), 45.0f * cos( angle4 ) }, 0.8f, asteroid.GetSize() / 2 );
-
-					game->AddAsteroid( child1 );
-					game->AddAsteroid( child2 );
-					asteroid.SetPositionX( -300.f );
-				}
-				asteroidsMap.erase( asteroidIt );
-				bulletHit = true;
-				break;
-			}
-			++asteroidIt;
-
-		} // end of asteroids loop
-
-		if ( bulletHit )
-		{
-
-			bulletIt = mBulletsVec.erase( bulletIt );
-		}
-		else
-		{
-			++bulletIt;
-		}
-
-	} // end of bullets loop
+	CheckAsteroidsCollision();
+	
+	UpdateBullets(deltaTime);
 
 }
 
 void Ship::Render( SDL_Renderer* renderer )
 {
-	auto game = Game::Getinstance();
+	auto game = Game::GetInstance();
 	SDL_SetRenderDrawColor( renderer, mColor.r, mColor.g, mColor.b, mColor.a );
 	game->DrawWireFrameModel( renderer, vecModelShip,
 							  mShip.mPosition.x, mShip.mPosition.y, mShip.mRotation );
@@ -220,7 +118,6 @@ void Ship::MoveBullet( SpaceObject& bullet, float deltaTime )
 {
 	bullet.mPosition.x += bullet.mVelocity.x * deltaTime;
 	bullet.mPosition.y += bullet.mVelocity.y * deltaTime;
-
 }
 
 void Ship::HaltAllSounds()
@@ -231,11 +128,127 @@ void Ship::HaltAllSounds()
 	Mix_HaltChannel(mAsteroidHitChannel);
 }
 
+void Ship::LoadAndSetSFX()
+{
+	std::string hoverSoundSrc = std::string( SOLUTION_DIR ) + "Assets/spaceshipHover.wav";
+	mHoverSound = Mix_LoadWAV( hoverSoundSrc.c_str() );
+	if ( !mHoverSound )
+	{
+		printf( "Failed to load the spaceship hover sound! , Error: %s", Mix_GetError() );
+	}
+	Mix_VolumeChunk( mHoverSound, MIX_MAX_VOLUME * 10 );
+	mHoverChannel = -1;
+
+	std::string laserSoundSrc = std::string( SOLUTION_DIR ) + "Assets/LaserShoot.wav";
+	mLaserSound = Mix_LoadWAV( laserSoundSrc.c_str() );
+	if ( !mLaserSound )
+	{
+		printf( "Failed to load the spaceship laser sound! , Error: %s", Mix_GetError() );
+	}
+
+	Mix_VolumeChunk( mLaserSound, MIX_MAX_VOLUME / 7 );
+	mLaserChannel = -1;
+
+	std::string deadSoundSrc = std::string( SOLUTION_DIR ) + "Assets/ShipDead.wav";
+	mDeadSound = Mix_LoadWAV( deadSoundSrc.c_str() );
+	if ( !mDeadSound )
+	{
+		printf( "Failed to load the spaceship hit sound! , Error: %s", Mix_GetError() );
+	}
+
+	Mix_VolumeChunk( mDeadSound, MIX_MAX_VOLUME / 5 );
+	mDeadChannel = -1;
+
+	std::string asteroidHitSoundSrc = std::string( SOLUTION_DIR ) + "Assets/AsteroidExplosion.wav";
+	mAsteroidHitSound = Mix_LoadWAV( asteroidHitSoundSrc.c_str() );
+	if ( !mAsteroidHitSound )
+	{
+		printf( "Failed to load the asteroid hit sound! , Error: %s", Mix_GetError() );
+	}
+
+	Mix_VolumeChunk( mAsteroidHitSound, MIX_MAX_VOLUME / 8 );
+	mAsteroidHitChannel = -1;
+}
+
+void Ship::CheckAsteroidsCollision()
+{
+	auto& asteroidsMap = Game::GetInstance()->GetAsteroidsMap();
+
+	for ( auto asteroidIt = asteroidsMap.begin(); asteroidIt != asteroidsMap.end();)
+	{
+		Asteroid* asteroid = &asteroidIt->second;
+		if ( IsCollidingWithAsteroid( asteroid ) )
+		{
+			Mix_PlayChannel( 3, mDeadSound, 0 );
+			Mix_HaltChannel( mHoverChannel );
+			SetIsDead( true );
+			break;
+		}
+		++asteroidIt;
+	}
+}
+
+void Ship::UpdateBullets( float deltaTime )
+{
+	auto game = Game::GetInstance();
+	auto& asteroidsMap = game->GetAsteroidsMap();
+
+	for ( auto bulletIt = mBulletsVec.begin(); bulletIt != mBulletsVec.end();)
+	{
+		bool bulletHit = false;
+		SpaceObject& bullet = *bulletIt;
+		MoveBullet( bullet, deltaTime );
+
+		for ( auto asteroidIt = asteroidsMap.begin(); asteroidIt != asteroidsMap.end();)
+		{
+			Asteroid& asteroid = asteroidIt->second;
+
+			if ( game->IsPointInCircle( asteroid.GetPosition().x, asteroid.GetPosition().y, static_cast< float >( asteroid.GetSize() ), bullet.mPosition.x, bullet.mPosition.y ) )
+			{
+				game->AddScore( 1 );
+				Mix_PlayChannel( 4, mAsteroidHitSound, 0 );
+				auto& pos = asteroid.GetPosition();
+				if ( asteroid.GetSize() > 12 )
+				{
+					static double angle1 = static_cast< float >( rand() ) / RAND_MAX * 2.4f * M_PI;
+					static double angle2 = static_cast< float >( rand() ) / RAND_MAX * 1.7f * M_PI;
+					static double angle3 = static_cast< float >( rand() ) / RAND_MAX * 1.3f * M_PI;
+					static double angle4 = static_cast< float >( rand() ) / RAND_MAX * 2.8f * M_PI;
+
+					SpaceObject child1( pos, glm::vec2{ 35.0f * sin( angle1 ), 30.0f * cos( angle2 ) }, 1.5f, asteroid.GetSize() / 2 );
+					SpaceObject child2( pos, glm::vec2{ 35.0f * sin( angle3 ), 45.0f * cos( angle4 ) }, 0.8f, asteroid.GetSize() / 2 );
+
+					game->AddAsteroid( child1 );
+					game->AddAsteroid( child2 );
+					asteroid.SetPositionX( -300.f );
+				}
+				asteroidsMap.erase( asteroidIt );
+				bulletHit = true;
+				break;
+			}
+			++asteroidIt;
+
+		} // end of asteroids loop
+
+		if ( bulletHit )
+		{
+
+			bulletIt = mBulletsVec.erase( bulletIt );
+		}
+		else
+		{
+			++bulletIt;
+		}
+
+	} // end of bullets loop
+
+}
+
 void Ship::SpawnBullet()
 {
 	glm::vec2 shipPosition = mShip.mPosition;
 	float shipRotation = mShip.mRotation;
-	float topPointOffset = 25.0f; // Distance from the center of the ship to the top point
+	
 
 	// Calculate the bullet's initial position based on
 	// the ship's position, rotation, and offset from the ship's center to its top point

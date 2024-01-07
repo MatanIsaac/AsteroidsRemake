@@ -107,11 +107,12 @@ void Game::Render()
 		if ( !mShip->GetIsDead() )
 		{
 			mShip->Render( m_Renderer );
+
 			for ( auto& a : mAsteroidsMap )
 			{
 				a.second.Render( m_Renderer );
 			}
-			//mFpsText->RenderText( m_Renderer, { 10.f, mFpsText->GetTextSize().y } );			
+
 			mScoreText->RenderText( m_Renderer, { 10.f, mScoreText->GetTextSize().y } );
 
 			if ( mPlayerWon )
@@ -141,11 +142,15 @@ void Game::Clean()
 
 	mShip->Clean();
 
+
 	SDL_DestroyRenderer( m_Renderer );
 	m_Renderer = nullptr;
 
 	SDL_DestroyWindow( m_Window );
 	m_Window = nullptr;
+	
+	delete mTimer;
+	mTimer = nullptr;
 
 	TTF_Quit();
 	IMG_Quit();
@@ -179,7 +184,7 @@ void Game::ProcessInput()
 	}
 }
 
-void Game::RunEngine()
+void Game::RunGame()
 {
 	while ( m_IsRunning )
 	{
@@ -348,8 +353,6 @@ void Game::RestartGame()
 	mTimer = new Timer();
 	mTimer->Start();
 
-	//mFpsText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( mFPSText.c_str(), 24, SDL_Color( 255, 0, 0, 255 ) ), TextRendererDeleter() );
-
 	const char* winText = "You WON!";
 	mWinText = std::unique_ptr<TextRenderer, TextRendererDeleter>( new TextRenderer( winText, 30, SDL_Color( 255, 255, 255, 255 ) ), TextRendererDeleter() );
 	mWinText->CreateText();
@@ -371,14 +374,6 @@ void Game::RestartGame()
 	mPlayerWon = false;
 
 	mAsteroidsMap.clear();
-
-// 	AddAsteroid( SpaceObject( { 75.f,450.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
-// 	AddAsteroid( SpaceObject( { 75.f,250.f },  { 18.0f, -15.0f },  0.5f, 48 ) );
-// 	AddAsteroid( SpaceObject( { 185.f,225.f }, { 18.0f, -15.0f }, 0.5f, 48 ) );
-// 	AddAsteroid( SpaceObject( { 300.f,100.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
-// 	AddAsteroid( SpaceObject( { 600.f,130.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
-// 	AddAsteroid( SpaceObject( { 300.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
-// 	AddAsteroid( SpaceObject( { 600.f,400.f }, { 18.0f, -15.0f }, 0.5f, 96 ) );
 
 	AddRandomAsteroids();
 

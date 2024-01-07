@@ -21,7 +21,7 @@ namespace venture
 
 	void InputManager::ProcessInput( SDL_Event* event )
 	{
-		auto game =Game::Getinstance();
+		auto game =Game::GetInstance();
 		while ( SDL_PollEvent( event ) )
 		{
 			if ( event->type == SDL_QUIT )

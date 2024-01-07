@@ -12,12 +12,12 @@
 
 int main(int argc, char* argv[])
 {
-	auto game = Game::Getinstance();
+	auto game = Game::GetInstance();
 	
 	if(!game->Init("MTN95-AsteroidsRemake", false))
 		printf("Failed to initialize game!");
 
-	game->RunEngine();
+	game->RunGame();
 	
 	game->Clean();
 	return 0;

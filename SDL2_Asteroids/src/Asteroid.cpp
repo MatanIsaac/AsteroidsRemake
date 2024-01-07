@@ -57,14 +57,14 @@ Asteroid::~Asteroid()
 
 void Asteroid::Update( float deltaTime )
 {
-	
+	// Move and Rotate Asteroids
 	mAsteroid.mPosition.x += mAsteroid.mVelocity.x * deltaTime;
 	mAsteroid.mPosition.y += mAsteroid.mVelocity.y * deltaTime;
 	mAsteroid.mRotation += 0.7f * deltaTime;
 	
 	auto fSize = static_cast< float >( GetSize() );
 
-	// Adjusting the position for screen wrapping
+	// Screen Wrapping Adjustment 
 	if ( mAsteroid.mPosition.x > SCREEN_WIDTH + fSize )
 	{
 		mAsteroid.mPosition.x = -fSize;
@@ -87,7 +87,7 @@ void Asteroid::Update( float deltaTime )
 
 void Asteroid::Render( SDL_Renderer* renderer )
 {
-	auto game = Game::Getinstance();
+	auto game = Game::GetInstance();
 
 	SDL_SetRenderDrawColor( renderer, mColor.r, mColor.g, mColor.b, mColor.a );
 

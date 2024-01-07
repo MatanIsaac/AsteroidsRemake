@@ -23,7 +23,7 @@ class Game
 {
 public:
 
-	static inline Game* Getinstance()
+	static inline Game* GetInstance()
 	{
 		return s_Instance = (s_Instance != nullptr) ? s_Instance : new Game();
 	}
@@ -36,7 +36,7 @@ public:
 	void Clean();
 
 	void ProcessInput();
-	void RunEngine();
+	void RunGame();
 
 	inline bool IsRunning() { return m_IsRunning; }
 	inline SDL_Renderer* GetRenderer() { return m_Renderer; }

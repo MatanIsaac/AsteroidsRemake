@@ -34,6 +34,12 @@ public:
 
     void SetIsDead( bool isDead ) {mIsDead = isDead;}
 
+	void LoadAndSetSFX();
+
+    void CheckAsteroidsCollision();
+
+    void UpdateBullets(float deltaTime);
+
 private:
 
     glm::vec2 GetShipForwardVector() const
@@ -50,6 +56,7 @@ private:
     bool mIsDead;
 
     float mAccelerationFactor;
+    static const float mRotationSpeed;
 
     std::vector<SpaceObject> mBulletsVec;
     float mBulletSpeed;
@@ -65,4 +72,7 @@ private:
     
     Mix_Chunk* mAsteroidHitSound;
     int mAsteroidHitChannel;
+
+    // Distance from the center of the ship to the top point
+    static const float topPointOffset; 
 };

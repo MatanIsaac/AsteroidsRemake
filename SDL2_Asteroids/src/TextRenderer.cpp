@@ -29,7 +29,7 @@ namespace venture
 	void TextRenderer::CreateText()
 	{
 		if ( !mTexture->CreateTextureFromText(
-			Game::Getinstance()->GetRenderer(),
+			Game::GetInstance()->GetRenderer(),
 			mFont.get(),
 			mText,
 			mTextColor ) )
