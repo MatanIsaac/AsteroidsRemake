@@ -1,9 +1,11 @@
 #pragma once
+#include <vector>
+#include <utility>
+
 #include <glm/glm.hpp>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
-#include <vector>
-#include <utility>
+
 #include "SpaceObject.h"
 #include "Asteroid.h"
 

@@ -1,8 +1,10 @@
 #pragma once
-#include <glm/glm.hpp>
-#include <SDL2/SDL.h>
 #include <vector>
 #include <utility>
+
+#include <glm/glm.hpp>
+#include <SDL2/SDL.h>
+
 #include "SpaceObject.h"
 
 using std::vector, std::pair, std::make_pair;

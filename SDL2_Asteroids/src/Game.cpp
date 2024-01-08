@@ -26,16 +26,16 @@ bool Game::Init( const char* title, bool fullscreen )
 		window_flags = SDL_WINDOW_FULLSCREEN;
 	}
 
-	m_Window = SDL_CreateWindow( title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags );
+	mWindow = SDL_CreateWindow( title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, window_flags );
 
-	if ( m_Window == nullptr )
+	if ( mWindow == nullptr )
 	{
 		std::cout << "Failed to Create Window! SDL_Error: " << SDL_GetError() << '\n';
 		return false;
 	}
 
-	m_Renderer = SDL_CreateRenderer( m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-	if ( m_Renderer == nullptr )
+	mRenderer = SDL_CreateRenderer( mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+	if ( mRenderer == nullptr )
 	{
 		std::cout << "Failed to Create Renderer! SDL_Error: " << SDL_GetError() << '\n';
 		return false;
@@ -62,7 +62,7 @@ bool Game::Init( const char* title, bool fullscreen )
 
 	RestartGame();
 
-	m_IsRunning = true;
+	mIsRunning = true;
 	return true;
 }
 
@@ -100,36 +100,36 @@ void Game::Update()
 void Game::Render()
 {
 	// Prepare scene
-	SDL_SetRenderDrawColor( m_Renderer, 0, 0, 0, 255 );
-	SDL_RenderClear( m_Renderer );
+	SDL_SetRenderDrawColor( mRenderer, 0, 0, 0, 255 );
+	SDL_RenderClear( mRenderer );
 	if ( mShip )
 	{
 		if ( !mShip->GetIsDead() )
 		{
-			mShip->Render( m_Renderer );
+			mShip->Render( mRenderer );
 
 			for ( auto& a : mAsteroidsMap )
 			{
-				a.second.Render( m_Renderer );
+				a.second.Render( mRenderer );
 			}
 
-			mScoreText->RenderText( m_Renderer, { 10.f, mScoreText->GetTextSize().y } );
+			mScoreText->RenderText( mRenderer, { 10.f, mScoreText->GetTextSize().y } );
 
 			if ( mPlayerWon )
 			{
-				mWinText->RenderText( m_Renderer, { 300.f, 250.f } );
-				mRestartText->RenderText( m_Renderer, { 150.f, 300.f } );
+				mWinText->RenderText( mRenderer, { 300.f, 250.f } );
+				mRestartText->RenderText( mRenderer, { 150.f, 300.f } );
 			}
 		}
 		else
 		{
-			mDeadText->RenderText( m_Renderer, { 300.f, 250.f } );
-			mRestartText->RenderText( m_Renderer, { 150.f, 300.f } );
+			mDeadText->RenderText( mRenderer, { 300.f, 250.f } );
+			mRestartText->RenderText( mRenderer, { 150.f, 300.f } );
 
 		}
 	}
 	// Present scene
-	SDL_RenderPresent( m_Renderer );
+	SDL_RenderPresent( mRenderer );
 }
 
 
@@ -143,11 +143,11 @@ void Game::Clean()
 	mShip->Clean();
 
 
-	SDL_DestroyRenderer( m_Renderer );
-	m_Renderer = nullptr;
+	SDL_DestroyRenderer( mRenderer );
+	mRenderer = nullptr;
 
-	SDL_DestroyWindow( m_Window );
-	m_Window = nullptr;
+	SDL_DestroyWindow( mWindow );
+	mWindow = nullptr;
 	
 	delete mTimer;
 	mTimer = nullptr;
@@ -186,7 +186,7 @@ void Game::ProcessInput()
 
 void Game::RunGame()
 {
-	while ( m_IsRunning )
+	while ( mIsRunning )
 	{
 		ProcessInput();
 		Update();
@@ -198,10 +198,6 @@ void Game::RunGame()
 	Clean();
 }
 
-void Game::DrawLine( SDL_Renderer* renderer, const glm::vec2& point1, const glm::vec2& point2 )
-{
-	SDL_RenderDrawLineF( renderer, point1.x, point1.y, point2.x, point2.y );
-}
 
 void Game::DrawWireFrameModel( SDL_Renderer* renderer, const std::vector<std::pair<float, float>>& vecModelCoordinates, float x, float y, float r, float s )
 {
@@ -253,7 +249,7 @@ void Game::DrawWireFrameModel( SDL_Renderer* renderer, const std::vector<std::pa
 		glm::vec2 A( clampToIntRange( ax ), clampToIntRange( ay ) );
 		glm::vec2 B( clampToIntRange( bx ), clampToIntRange( by ) );
 
-		DrawLine( renderer, A, B );
+		SDL_RenderDrawLineF( renderer, A.x, A.y, B.x, B.y );
 	}
 
 }

@@ -1,8 +1,10 @@
 #include "Ship.h"
-#include <iostream>
-#include <algorithm>
 #include "Game.h"
 #include "InputManager.hpp"
+
+#include <iostream>
+#include <algorithm>
+
 
 const float Ship::topPointOffset = 25.0f;
 const float Ship::mRotationSpeed = 5.0f;
