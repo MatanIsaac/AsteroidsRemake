@@ -13,9 +13,10 @@
 #include "Timer.h"
 #include "Ship.h"
 
+// The Window's width
 const int SCREEN_WIDTH = 800;
+// The Window's height
 const int SCREEN_HEIGHT = 600;
-
 
 using namespace venture;
 
@@ -159,6 +160,8 @@ public:
 	void AddScore( int score ) { mScoreCount += score; }
 
 private:
+	// Game's private constructor
+	// Follows the singleton design pattern
 	Game()
 		: mWindow( nullptr )
 		, mRenderer( nullptr )
@@ -174,48 +177,78 @@ private:
 		, mPlayerWon( false )
 	{}
 
+	// The Game class instance (singleton)
 	static Game* s_Instance;
-
+	// The Game's window
 	SDL_Window* mWindow;
+	// The Game's renderer
 	SDL_Renderer* mRenderer;
 
+	// boolean to hold the game running condition
 	bool mIsRunning;
+	// boolean to hold the winning condition
 	bool mPlayerWon;
 
+	// Map to hold the game's asteroids
 	std::unordered_map<int, Asteroid> mAsteroidsMap;
 
+	// The player's ship object
 	Ship* mShip;
 
+	// the Game's timer
 	Timer* mTimer;
-	uint64_t mTicksCount;
-	float mDeltaTime;
 
+	// The Game's tick count
+	uint64_t mTicksCount;
+	// The Game's delta time
+	float mDeltaTime;
+	// Holds the score text to be rendered
 	std::string mScoreStr;
+	// Holds the game's fps text 
 	std::string mFPSText;
+	// The Game's fps
 	long double mFPS;
+	// Renders the fps text
 	//std::unique_ptr<TextRenderer, TextRendererDeleter> mFpsText;
+	// Renders the win text
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mWinText;
+	// Renders the dead text
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mDeadText;
+	// Renders the restart text
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mRestartText;
+	// Renders the score text
 	std::unique_ptr<TextRenderer, TextRendererDeleter> mScoreText;
 
+	// Game's score count
 	int mScoreCount;
+	
+	// Asteroids map index
 	int mAsteroidsIndex;
-	int mStartGameChannel = 0;
 
+	// Minimum asteroids count
 	static const int MIN_ASTEROIDS_COUNT = 15;
+	// Maximum asteroids count
 	static const int MAX_ASTEROIDS_COUNT = 35;
+	// Minimum asteroids size
 	static const int MIN_SIZE = 24;
+	// Minimum asteroids size
 	static const int MAX_SIZE = 96;
-
+	// Minimum asteroids x velocity
 	static const float MIN_X_VELOCITY;
+	// Maximum asteroids x velocity
 	static const float MAX_X_VELOCITY;
+	// Minimum asteroids y velocity
 	static const float MIN_Y_VELOCITY;
+	// Maximum asteroids y velocity
 	static const float MAX_Y_VELOCITY;
+	// Minimum asteroids rotation
 	static const float MIN_ROT;
+	// Maximum asteroids rotation
 	static const float MAX_ROT;
 
+	// Game Start Sound
 	Mix_Chunk* mStartGameSound;
-
+	// Game start sound channel
+	int mStartGameChannel = 0;
 };
 
