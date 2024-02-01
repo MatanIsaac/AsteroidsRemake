@@ -67,6 +67,9 @@ public:
 	*/
 	void RunGame();
 	
+	/// Getters
+	///--------------------------------------------------------
+
 	/**
 	 * @brief Checks if the game is currently running.
 	 * @return bool Returns true if the game is running, false otherwise.
@@ -95,6 +98,9 @@ public:
 	 * @brief Returns the game's asteroids map (unordered)
 	 */
 	std::unordered_map<int, Asteroid>& GetAsteroidsMap() { return mAsteroidsMap; }
+
+	/// Utility
+	///--------------------------------------------------------
 
 	/**
 	 * @brief Draws a wire frame (an outline shape) type of model with the given the coordinates.

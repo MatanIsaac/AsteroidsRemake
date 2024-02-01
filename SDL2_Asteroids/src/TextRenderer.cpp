@@ -4,7 +4,7 @@
 namespace venture
 {
 	TextRenderer::TextRenderer( const char* text, uint8_t textSize, SDL_Color textColor )
-		: mText( text ), mTextSize( textSize ), mTextColor( textColor ), mTimeIsUp(false)
+		: mText( text ), mTextSize( textSize ), mTextColor( textColor )
 	{
 		mPosition = glm::vec2();
 		std::string defaultFont = std::string( SOLUTION_DIR ) + "Assets/fonts/pixeldue.ttf";

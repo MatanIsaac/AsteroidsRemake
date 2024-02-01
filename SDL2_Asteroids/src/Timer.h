@@ -198,13 +198,28 @@ private:
     }
 
 private:
-    SteadyTimePoint mStartTime {};
-    SteadyTimePoint mPauseTime {};
-    SteadyTimePoint mEndTime {};
+	// Represents the time point when the timer was started.
+	SteadyTimePoint mStartTime{};
 
-    std::chrono::duration<float> mDuration {};
+	// Represents the time point when the timer was last paused.
+	SteadyTimePoint mPauseTime{};
 
-    bool mStarted {};
-    bool mEnded {};
-    bool mPaused {};
+	// Represents the time point when the timer was stopped or ended.
+	SteadyTimePoint mEndTime{};
+
+	// Stores the total duration for which the timer has been active. This excludes
+	// any paused durations if the timer supports pausing and resuming.
+	std::chrono::duration<float> mDuration{};
+
+	// Flag indicating whether the timer has been started. It does not necessarily
+	// mean the timer is currently running (e.g., it could be paused).
+	bool mStarted{};
+
+	// Flag indicating whether the timer has been stopped. This is typically set when
+	// the timer's stop function is called, marking the end of a timing session.
+	bool mEnded{};
+
+	// Flag indicating whether the timer is currently paused. A paused timer can be
+	// resumed from the point it was paused.
+	bool mPaused{};
 };

@@ -13,6 +13,9 @@ class Asteroid
 {
 public:
 
+	/// Constructors & Destructors
+	///--------------------------------------------------------
+
 	/**
 	* @brief Constructor for Asteroid class.
 	* @param obj SpaceObject representing the asteroid.
@@ -38,6 +41,9 @@ public:
 	 */
 	~Asteroid();
 
+	/// Utility
+	///--------------------------------------------------------
+	
 	/**
 	 * @brief Updates the asteroid's state.
 	 * @param deltaTime Time elapsed since the last update.
@@ -54,6 +60,9 @@ public:
 	 * @brief Performs cleanup of the asteroid's resources.
 	 */
 	void Clean();	
+
+	/// Getters 
+	///--------------------------------------------------------
 
 	/**
 	 * @brief Retrieves the asteroid's position.

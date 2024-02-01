@@ -11,16 +11,21 @@
 
 using std::vector, std::pair, std::make_pair;
 
+// A Class to handle the player's ship 
+
 class Ship
 {
 public:
+	/// Constructors & Destructors
+	///--------------------------------------------------------
+	
 	/**
 	* @brief Constructor for Ship class.
 	* @param position Initial position of the ship.
 	* @param color Color of the ship.
 	*/
 	Ship( const glm::vec2& position, const SDL_Color& color );
-
+	
 	/**
 	 * @brief Processes user input for the ship.
 	 */
@@ -43,6 +48,9 @@ public:
 	*/
 	void Clean();
 
+	/// Getters 
+	///--------------------------------------------------------
+
 	/**
 	 * @brief Retrieves the ship's position.
 	 * @return Current position of the ship.
@@ -54,6 +62,21 @@ public:
 	 * @return Reference to the ship's SpaceObject.
 	 */
 	SpaceObject& GetSpaceObject() { return mShip; }
+
+	/**
+	 * @brief Checks if the ship is dead.
+	 * @return True if the ship is dead, false otherwise.
+	 */
+	bool GetIsDead() const noexcept { return mIsDead; }
+
+	/**
+	 * @brief Sets the ship's dead status.
+	 * @param isDead New dead status of the ship.
+	 */
+	void SetIsDead( bool isDead ) { mIsDead = isDead; }
+
+	/// Utility
+	///--------------------------------------------------------
 
 	/**
 	 * @brief Moves the ship based on the elapsed time.
@@ -80,17 +103,6 @@ public:
 	 */
 	void HaltAllSounds();
 
-	/**
-	 * @brief Checks if the ship is dead.
-	 * @return True if the ship is dead, false otherwise.
-	 */
-	bool GetIsDead() const noexcept { return mIsDead; }
-
-	/**
-	 * @brief Sets the ship's dead status.
-	 * @param isDead New dead status of the ship.
-	 */
-	void SetIsDead( bool isDead ) { mIsDead = isDead; }
 
 	/**
 	 * @brief Loads and sets sound effects for the ship.

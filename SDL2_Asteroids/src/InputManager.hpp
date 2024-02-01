@@ -31,6 +31,7 @@
 
 namespace venture
 {
+	// Enumeration to differentiate between mouse buttons
 	enum class MouseButton
 	{
 		LEFT = 1,
@@ -44,7 +45,9 @@ namespace venture
 	class InputManager
 	{
 	public:
-
+		/**
+		 * @brief Retrieves the static instance of the class, creating one if it doesn't exist.
+		 */
 		static InputManager* get()
 		{
 			if ( s_Instance == nullptr )
@@ -54,52 +57,141 @@ namespace venture
 			return s_Instance;
 		}
 
+		/// Input
+		///--------------------------------------------------------
+		
+		/**
+		 * @brief Processes input events.
+		 */
 		void ProcessInput( SDL_Event* event );
+		
+		/**
+		 * @brief Updates the state of inputs from the previous frame.
+		 */
 		void UpdatePrevInput();
 
-		bool isKeyDown( SDL_Scancode scancode );
-		const bool isKeyPressed( SDL_Scancode scancode ) const;
-		const bool isKeyReleased( SDL_Scancode scancode ) const;
-		const bool isMouseButtonDown( MouseButton button ) const;
-		const bool isMouseButtonPressed( MouseButton button ) const;
-		const bool isMouseButtonReleased( MouseButton button ) const;
-
-		int GetMouseX() const { return mMouseXPos; }
-		int GetMouseY() const { return mMouseYPos; }
+		/// State Checks
+		///--------------------------------------------------------
 		
-		glm::ivec2 GetMousePosition();
-
+		/**
+		 * @brief Checks if a key is held down
+		 */
+		bool isKeyDown( SDL_Scancode scancode );
+		
+		/**
+		 * @brief Checks if a key is pressed
+		 */
+		const bool isKeyPressed( SDL_Scancode scancode ) const;
+		
+		/**
+		 * @brief Checks if a key is released
+		 */
+		const bool isKeyReleased( SDL_Scancode scancode ) const;
+		
+		/**
+		 * @brief Checks if a mouse button is held down
+		 */
+		const bool isMouseButtonDown( MouseButton button ) const;
+		
+		/**
+		 * @brief Checks if a mouse button is pressed
+		 */
+		const bool isMouseButtonPressed( MouseButton button ) const;
+		
+		/**
+		 * @brief Checks if a mouse button is released
+		 */
+		const bool isMouseButtonReleased( MouseButton button ) const;
+		
+		/**
+		 * @brief Checks if a mouse button is locked (held down)
+		 */
 		const bool IsMouseLocked() const { return mMouseLock; }
+		
+		/**
+		 * @brief Checks if a key is locked(held down)
+		 */
 		const bool IsKeyboardLocked() const { return mKeyLock; }
 
+		/// Getters
+		///--------------------------------------------------------
+
+		/**
+		 * @brief Get the mouse's x position
+		 */
+		int GetMouseX() const { return mMouseXPos; }
+		
+		/**
+		 * @brief Get the mouse's y position
+		 */
+		int GetMouseY() const { return mMouseYPos; }
+		
+		/**
+		 * @brief Get the mouse's position
+		 */
+		glm::ivec2 GetMousePosition();
+
+
+		/// Utility
+		///--------------------------------------------------------
+		
+		/**
+		 * @brief Locks the mouse (I.E cannot "trigger" a button if the mouse is locked)
+		 */
 		void LockMouse() { mMouseLock = true; }
+		
+		/**
+		 * @brief Locks the keyboard
+		 */
 		void LockKeyboard() { mKeyLock = true; }
 		
+		/**
+		 * @brief Unlocks the mouse
+		 */
 		void UnlockMouse() { mMouseLock = false; }
+		
+		/**
+		 * @brief Unlocks the keyboard 
+		 */
 		void UnlockKeyboard() { mKeyLock = false; }
 
 	private:
+
+		// Private constructor and destructor to follow the singleton design pattern.
+		
+		/**
+		 * @brief The InputManager constructor 
+		 */
 		InputManager();
+		
+		/**
+		 * @brief The InputManager destructor
+		 */
 		~InputManager();
 
+		// The static instance of the class (to follow the singleton design pattern)
 		static InputManager* s_Instance;
 
+		// Previous keyboard state.
 		uint8_t* mPrevKeyState;
-		const uint8_t* mCurrKeyState;
-		int mKeyLength;
-		int mMouseLength;
 
+		// Current keyboard state.
+		const uint8_t* mCurrKeyState;
+
+		// Number of keys tracked.
+		int mKeyLength;
+
+		// Previous mouse state.
 		uint32_t mPrevMouseState;
+		// Current mouse state.
 		uint32_t mCurrMouseState;
 
-		int mMouseXPos;
-		int mMouseYPos;
+		// Mouse positions.
+		int mMouseXPos, mMouseYPos; 
+		// Lock states for mouse and keyboard.
+		bool mMouseLock, mKeyLock; 
 
-		bool mMouseLock;
-		bool mKeyLock;
-
-	private:
-		// Unwanted deleted constructors
+		// Deleted constructors and assignment operators for Singleton enforcement.
 		InputManager( InputManager&& ) = delete;
 		InputManager( const InputManager& ) = delete;
 		InputManager& operator=( InputManager&& ) = delete;

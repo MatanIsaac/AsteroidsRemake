@@ -70,7 +70,7 @@ This involves configuring the environment to match the dependencies and settings
 
 This project, while small in scale, embraces the open-source philosophy. 
 
-A few finishing touches are still to be dealt with, in order to make this game complele. 
+A few finishing touches are still to be dealt with, in order to make this game complete. 
 
 Here's a TODO List: (Done tasks are marked with - ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2))
     
