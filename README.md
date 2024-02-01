@@ -78,7 +78,7 @@ Here's a TODO List: (Done tasks are marked with - ![icons8-ok-16](https://github
  2. Define a Victory Condition. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
  3. Incorporate Randomization to The Game. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
  4. Duplicated Asteroids Rotate The Same Direction Sometimes. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
- 5. Tidy up code and Add Documentation to Everything.
+ 5. Tidy up code and Add Documentation to Everything. ![icons8-ok-16](https://github.com/MTN95/AsteroidsRemake/assets/113786893/0b1a5b0b-cfce-4f5f-b59c-95b3b91507e2)
         
 
 You are encouraged to use, modify, and enhance the code as you see fit. 
